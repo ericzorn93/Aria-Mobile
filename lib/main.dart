@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:aria/pages/HomePage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:aria/blocs/CounterBloc.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +16,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         accentColor: Colors.red,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BlocProvider<CounterBloc>(
+          builder: (context) => CounterBloc(),
+          child: MyHomePage(title: 'Flutter Demo Home Page')),
     );
   }
 }
