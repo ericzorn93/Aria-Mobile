@@ -1,37 +1,44 @@
 import 'dart:io';
+import 'package:aria/blocs/auth_bloc/login/LoginBloc.dart';
+import 'package:aria/pages/auth/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'package:aria/pages/HomePage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:aria/blocs/CounterBloc.dart';
 
 void main() => runApp(AriaApp());
 
 class AriaApp extends StatelessWidget {
-  String _appTitle = "Aria Music (Currently Counter)";
+  String _appTitle = "Aria Music";
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoApp(
-        title: _appTitle,
-        home: BlocProvider<CounterBloc>(
-            builder: (context) => CounterBloc(),
-            child: MyHomePage(title: 'Flutter Demo Home Page')),
-      );
+          title: _appTitle,
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider<LoginBloc>(
+                builder: (BuildContext context) => LoginBloc(),
+              ),
+            ],
+            child: LoginPage(),
+          ));
     }
 
     return MaterialApp(
-      title: 'Aria Music (Currently Counter)',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-        accentColor: Colors.red,
-      ),
-      home: BlocProvider<CounterBloc>(
-          builder: (context) => CounterBloc(),
-          child: MyHomePage(title: 'Flutter Demo Home Page')),
-    );
+        title: 'Aria Music',
+        theme: ThemeData(
+          primaryColor: Colors.blue,
+          accentColor: Colors.red,
+        ),
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider<LoginBloc>(
+              builder: (BuildContext context) => LoginBloc(),
+            ),
+          ],
+          child: LoginPage(),
+        ));
   }
 }
