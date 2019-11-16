@@ -31,6 +31,7 @@ class AuthenticationBloc
           passwordValid: _validatePassword(event.password));
     } else if (event is LoginEvent) {
       final bool loggedIn = await _login();
+
       yield state.copyWith(
         loggedIn: loggedIn,
       );
