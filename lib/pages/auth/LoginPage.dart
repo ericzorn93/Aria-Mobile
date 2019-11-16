@@ -12,28 +12,65 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void _handleEmailAddressChange(BuildContext context, String emailAddress) {
-    final AuthenticationBloc authBloc =
-        BlocProvider.of<AuthenticationBloc>(context);
+  AuthenticationBloc _authBloc;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-    authBloc.add(UpdateEmailEvent(emailAddress: emailAddress));
+  @override
+  void initState() {
+    super.initState();
+    _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+    _emailController.addListener(_onEmailChanged);
+    _passwordController.addListener(_onPasswordChanged);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
-      return CupertinoPageScaffold(
+      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+        return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            middle: Text("Login"),
+            middle: Text(
+              "Login",
+              style: TextStyle(fontSize: 20),
+            ),
+            backgroundColor: CupertinoColors.destructiveRed,
           ),
-          child: Container(child: Center(child:
-              BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                  builder: (context, state) {
-            return CupertinoTextField(
-              onChanged: (text) => _handleEmailAddressChange(context, text),
-              placeholder: "Enter email",
-            );
-          }))));
+          child: Form(
+            child: ListView(
+              children: <Widget>[
+                CupertinoTextField(
+                  controller: _emailController,
+                  placeholder: "Enter email",
+                  autocorrect: true,
+                ),
+                CupertinoTextField(
+                  placeholder: "Enter Password",
+                  controller: _passwordController,
+                  autocorrect: false,
+                ),
+                Text(state.emailAddress),
+                Text(state.password),
+                Text(state.loggedIn.toString()),
+                CupertinoButton(
+                  child: Text("Submit"),
+                  onPressed: () {
+                    _handleFormSubmit(state);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      });
     }
 
     return (Scaffold(
@@ -41,5 +78,17 @@ class _LoginPageState extends State<LoginPage> {
         title: Text("Login"),
       ),
     ));
+  }
+
+  void _onEmailChanged() {
+    _authBloc.add(UpdateEmailEvent(emailAddress: _emailController.text));
+  }
+
+  void _onPasswordChanged() {
+    _authBloc.add(UpdatePasswordEvent(password: _passwordController.text));
+  }
+
+  void _handleFormSubmit(AuthenticationState currentFormState) {
+    _authBloc.add(LoginEvent());
   }
 }

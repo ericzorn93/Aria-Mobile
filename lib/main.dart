@@ -54,6 +54,8 @@ class App extends StatelessWidget {
     }
 
     // AndroidApp
-    return _loadInitialApp(MaterialApp(home: LoginPage()));
+    return _loadInitialApp(MaterialApp(
+      home: LoginPage(),
+    ));
   }
 }
