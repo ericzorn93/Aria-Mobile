@@ -13,6 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _loginPressed = false;
+
   AuthenticationBloc _authBloc;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -52,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             navigationBar: CupertinoNavigationBar(
               middle: Text(
                 "Login",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(color: Colors.white),
               ),
               backgroundColor: CupertinoColors.destructiveRed,
             ),
@@ -73,12 +75,19 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _passwordController,
                       autocorrect: false,
                     ),
-                    CupertinoButton(
-                      child: Text("Submit"),
-                      color: CupertinoColors.destructiveRed,
-                      onPressed: () {
-                        _handleFormSubmit(context, state);
-                      },
+                    IgnorePointer(
+                      ignoring: _loginPressed,
+                      child: CupertinoButton(
+                        child: Text("Submit"),
+                        color: _loginPressed
+                            ? Colors.deepOrange
+                            : CupertinoColors.destructiveRed,
+                        onPressed: () {
+                          if (!_loginPressed) {
+                            _handleFormSubmit(context, state);
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -107,6 +116,10 @@ class _LoginPageState extends State<LoginPage> {
   void _handleFormSubmit(
       BuildContext context, AuthenticationState currentFormState) {
     _authBloc.add(LoginEvent());
+
+    setState(() {
+      _loginPressed = true;
+    });
   }
 
   void _successfulLoginNavigate(BuildContext context, Widget route) {
