@@ -1,20 +1,32 @@
 import 'package:equatable/equatable.dart';
 
-abstract class AuthenticationState extends Equatable {
-  const AuthenticationState();
-}
+class AuthenticationState extends Equatable {
+  final String emailAddress;
+  final String password;
+  final bool emailAddressValid;
 
-class InitialAuthenticationState extends AuthenticationState {
-  @override
-  List<Object> get props => [];
-}
+  const AuthenticationState(
+      {this.emailAddress, this.password, this.emailAddressValid});
 
-class UnauthenticatedState extends AuthenticationState {
-  @override
-  List<Object> get props => [];
-}
+  factory AuthenticationState.initial() {
+    return AuthenticationState(
+      emailAddress: '',
+      password: '',
+      emailAddressValid: false,
+    );
+  }
 
-class LoggedInState extends AuthenticationState {
+  AuthenticationState copyWith({
+    String emailAddress,
+    String password,
+    bool emailAddressValid,
+  }) {
+    return AuthenticationState(
+        emailAddress: emailAddress ?? this.emailAddress,
+        password: password ?? this.password,
+        emailAddressValid: emailAddressValid ?? this.emailAddressValid);
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [emailAddress, password, emailAddressValid];
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:aria/pages/auth/bloc/authentication_bloc.dart';
+import 'package:aria/pages/auth/bloc/authentication_event.dart';
 import 'package:aria/pages/auth/bloc/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  void _handleEmailAddressChange(BuildContext context, String emailAddress) {
+    final AuthenticationBloc authBloc =
+        BlocProvider.of<AuthenticationBloc>(context);
+
+    authBloc.add(UpdateEmailEvent(emailAddress: emailAddress));
+  }
+
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
@@ -21,11 +29,10 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(child: Center(child:
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (context, state) {
-            if (state is InitialAuthenticationState) {
-              return Text("Hello Home page");
-            }
-
-            return Text("");
+            return CupertinoTextField(
+              onChanged: (text) => _handleEmailAddressChange(context, text),
+              placeholder: "Enter email",
+            );
           }))));
     }
 
