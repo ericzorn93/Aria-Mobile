@@ -1,4 +1,5 @@
-# aria
+# Aria
+## Mobile Application (Written in Dart and Flutter)
 
 A new Flutter project.
 
