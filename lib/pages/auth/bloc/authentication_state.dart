@@ -5,12 +5,8 @@ abstract class AuthenticationState extends Equatable {
 }
 
 class InitialAuthenticationState extends AuthenticationState {
-  final String emailAddress;
-
-  InitialAuthenticationState({this.emailAddress});
-
   @override
-  List<Object> get props => [emailAddress];
+  List<Object> get props => [];
 }
 
 class UnauthenticatedState extends AuthenticationState {

@@ -5,8 +5,7 @@ import './bloc.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   @override
-  AuthenticationState get initialState =>
-      InitialAuthenticationState(emailAddress: "zornwebdev@gmail.com");
+  AuthenticationState get initialState => InitialAuthenticationState();
 
   @override
   Stream<AuthenticationState> mapEventToState(

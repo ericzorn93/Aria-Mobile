@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (context, state) {
             if (state is InitialAuthenticationState) {
-              return Text(state.emailAddress);
+              return Text("Hello Home page");
             }
 
             return Text("");
