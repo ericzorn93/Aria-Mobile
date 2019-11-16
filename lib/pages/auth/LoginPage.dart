@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:aria/blocs/auth_bloc/login/LoginBloc.dart';
-import 'package:aria/blocs/auth_bloc/login/LoginState.dart';
+import 'package:aria/pages/auth/bloc/authentication_bloc.dart';
+import 'package:aria/pages/auth/bloc/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,17 +18,16 @@ class _LoginPageState extends State<LoginPage> {
           navigationBar: CupertinoNavigationBar(
             middle: Text("Login"),
           ),
-          child: BlocBuilder<LoginBloc, LoginState>(
-            builder: (context, state) {
-              return Container(
-                child: Center(
-                  child: Text(state.emailAddress),
-                ),
-              );
-            },
-          ));
+          child: Container(child: Center(child:
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  builder: (context, state) {
+            if (state is InitialAuthenticationState) {
+              return Text(state.emailAddress);
+            }
+
+            return Text("");
+          }))));
     }
-    ;
 
     return (Scaffold(
       appBar: AppBar(
