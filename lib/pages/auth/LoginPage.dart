@@ -65,13 +65,17 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    Text(
+                      "Aria",
+                      style: TextStyle(fontSize: 50),
+                    ),
                     CupertinoTextField(
                       controller: _emailController,
-                      placeholder: "Enter email",
+                      placeholder: "Please enter your email address",
                       autocorrect: true,
                     ),
                     CupertinoTextField(
-                      placeholder: "Enter Password",
+                      placeholder: "Please enter your password",
                       controller: _passwordController,
                       autocorrect: false,
                     ),
@@ -101,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
     return (Scaffold(
       appBar: AppBar(
         title: Text("Login"),
+        backgroundColor: Colors.red,
       ),
     ));
   }
