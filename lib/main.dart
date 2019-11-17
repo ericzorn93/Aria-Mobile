@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:aria/global/blocs/theme/bloc.dart';
-import 'package:aria/pages/auth/LoginPage.dart';
+import 'package:aria/pages/auth/login_page.dart';
 import 'package:aria/pages/auth/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

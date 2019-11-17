@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:aria/pages/auth/bloc/authentication_bloc.dart';
 import 'package:aria/pages/auth/bloc/authentication_event.dart';
 import 'package:aria/pages/auth/bloc/authentication_state.dart';
-import 'package:aria/pages/home.dart';
+import 'package:aria/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
